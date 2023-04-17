@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Иван Мазалов](https://up.htmlacademy.ru/javascript/28/user/2344405).
-* Наставник: [Руслан Бреев](https://htmlacademy.ru/profile/blckwltz).
+* Наставник: [Rail Sakhaviev](https://htmlacademy.ru/profile/id1331891).
 
 ---
 
