@@ -1,28 +1,20 @@
 //Длина строки
 function checkStrLength(str, maxLength) {
-  if (str.length <= maxLength) {
-    return true;
-  } else {
-    return false;
-  }
+  return str.length <= maxLength;
 }
 
 //Является ли палиндромом
 function checkPalindrome(str) {
   const strPalind = str.toLowerCase().replace(/[^a-z0-9]+/g,'');
-  if (strPalind.split('').reverse().join('') == str.toLowerCase()) {
-    return true;
-  } else {
-    return false;
-  }
+  return strPalind.split('').reverse().join('') === str.toLowerCase();
 }
 
 // Извлекает цифры
 function extractNumbers(str) {
   const value = str.toString();
-  const numb = value.match((/\d+/g));
-  if (Array.isArray(numb)) {
-    return parseInt(numb.join(''), 10);
+  const numbers = value.match((/\d+/g));
+  if (Array.isArray(numbers)) {
+    return parseInt(numbers.join(''), 10);
   } else {
     return NaN;
   }
