@@ -1,6 +1,6 @@
 import {getRandomArrayElement, getRandomInteger} from './functions.js';
 
-const NAMES = [
+const names = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -11,7 +11,7 @@ const NAMES = [
   'Степашка',
 ];
 
-const COMMENTS = [
+const comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -20,7 +20,7 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const DESCRIPTION = [
+const descriptions = [
   'Удачная попытка фотографии!!!',
   'На отдыхе в солнечный день.',
   'Залив в приморском крае.',
@@ -48,36 +48,35 @@ const DESCRIPTION = [
 ];
 
 function createComments() {
-  const comments = [];
+  const newComments = [];
   const commentsCount = getRandomInteger(1, 2);
 
   for (let i = 0; i < commentsCount; i++) {
     const comment = {
       id: getRandomInteger(1, 1000),
       avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-      message: getRandomArrayElement(COMMENTS),
-      name: getRandomArrayElement(NAMES),
+      message: getRandomArrayElement(comments),
+      name: getRandomArrayElement(names),
     };
-    comments.push(comment);
+    newComments.push(comment);
   }
   return comments;
 }
 
-function createObjects() {
-  const objects = [];
+function createPictures() {
+  const pictures = [];
 
   for (let i = 0; i < 25; i++) {
     const object = {
       id: i + 1,
       url: `photos/${getRandomInteger(1, 25)}.jpg`,
-      description:  getRandomArrayElement(DESCRIPTION),
+      description:  getRandomArrayElement(descriptions),
       likes: getRandomInteger(15, 200),
       comments: createComments(),
     };
-    objects.push(object);
+    pictures.push(object);
   }
-  return objects;
+  return pictures;
 }
 
-createComments();
-createObjects();
+createPictures();

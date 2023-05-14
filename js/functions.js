@@ -18,7 +18,7 @@ function checkPalindrome(str) {
 }
 
 // Извлекает цифры
-function checkNumbers(str) {
+function extractNumbers(str) {
   const value = str.toString();
   const numb = value.match((/\d+/g));
   if (Array.isArray(numb)) {
@@ -29,7 +29,7 @@ function checkNumbers(str) {
 }
 
 // Дополняет строку
-function strPlus(str, minLength, newStr) {
+function addNewStr(str, minLength, newStr) {
   if (str.length >= minLength) {
     return str;
   } else {
@@ -56,5 +56,10 @@ const getRandomInteger = (a, b) => {
 
 // Функиця по поиску случайного элемента в переданном массиве.
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+checkStrLength();
+checkPalindrome();
+extractNumbers();
+addNewStr();
 
 export {getRandomInteger, getRandomArrayElement};
