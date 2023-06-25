@@ -1,4 +1,6 @@
 import { createPictures } from './data';
-import '.thumbnail.js';
+import { picturesContainer } from './thumbnail';
 
 createPictures();
+
+console.log('Are you see me?')
