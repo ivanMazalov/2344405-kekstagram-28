@@ -64,19 +64,18 @@ const descriptions = [
 ];
 
 function createComments() {
-  const newComments = [];
-  const commentsCount = getRandomInteger(1, 2);
+  const result = [];
+  const commentsCount = getRandomInteger(0, comments.length);
 
   for (let i = 0; i < commentsCount; i++) {
-    const comment = {
+    result.push({
       id: getRandomInteger(1, 1000),
-      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+      avatar: `img/avatar-${getRandomInteger(MIN_NUMBER_AVATAR, MAX_NUMBER_AVATAR)}.svg`,
       message: getRandomArrayElement(comments),
       name: getRandomArrayElement(names),
-    };
-    newComments.push(comment);
+    });
   }
-  return comments;
+  return result;
 }
 
 function createPictures() {
@@ -84,8 +83,8 @@ function createPictures() {
 
   for (let i = 0; i < QUANTITY_OF_POSTS; i++) {
     const object = {
-      id: i + 1,
-      url: `photos/${getRandomInteger(MIN_NUMBER_AVATAR, MAX_NUMBER_AVATAR)}.jpg`,
+      id: i,
+      url: `photos/${i}.jpg`,
       description:  getRandomArrayElement(descriptions),
       likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
       comments: createComments(),
