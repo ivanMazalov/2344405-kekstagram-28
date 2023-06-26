@@ -1,5 +1,11 @@
 import {getRandomArrayElement, getRandomInteger} from './functions.js';
 
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const MIN_NUMBER_AVATAR = 1;
+const MAX_NUMBER_AVATAR = 6;
+const QUANTITY_OF_POSTS = 25;
+
 const names = [
   'Иван',
   'Хуан Себастьян',
@@ -17,7 +23,17 @@ const comments = [
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  'Прекрасный момент, запечатленный на фото!',
+  'Вау, какая яркая и эмоциональная фотография!',
+  'Просто волшебно! Это фото заставляет мое сердце трепетать.',
+  'Идеальный кадр! Хороший выбор ракурса и освещения.',
+  'Улыбки, которые несут солнечный свет. Прекрасное фото!',
+  'Мгновение вечности, запечатленное объективом камеры.',
+  'Эта фотография переносит меня в другой мир. Восхитительно!',
+  'Красота, которая неописуема словами. Просто великолепно!',
+  'Маленький кусочек счастья, который навсегда сохранен на фото.',
+  'Снимок, который заставляет мое сердце замирать. Восхитительно!'
 ];
 
 const descriptions = [
@@ -66,12 +82,12 @@ function createComments() {
 function createPictures() {
   const pictures = [];
 
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < QUANTITY_OF_POSTS; i++) {
     const object = {
       id: i + 1,
-      url: `photos/${getRandomInteger(1, 25)}.jpg`,
+      url: `photos/${getRandomInteger(MIN_NUMBER_AVATAR, MAX_NUMBER_AVATAR)}.jpg`,
       description:  getRandomArrayElement(descriptions),
-      likes: getRandomInteger(15, 200),
+      likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
       comments: createComments(),
     };
     pictures.push(object);

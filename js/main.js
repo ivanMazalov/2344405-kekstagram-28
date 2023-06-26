@@ -1,6 +1,5 @@
-import { createPictures } from './data';
-import { picturesContainer } from './thumbnail';
+import { createPictures } from './data.js';
+import { createUserPhotos } from './thumbnail.js';
 
-createPictures();
-
-console.log('Are you see me?')
+const photoData = createPictures();
+createUserPhotos(photoData);
