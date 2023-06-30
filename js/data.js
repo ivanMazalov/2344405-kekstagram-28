@@ -5,8 +5,10 @@ const MAX_LIKES = 200;
 const MIN_NUMBER_AVATAR = 1;
 const MAX_NUMBER_AVATAR = 6;
 const QUANTITY_OF_POSTS = 25;
+const MIN_COMMENT_ID = 1;
+const MAX_COMMENT_ID = 999;
 
-const names = [
+const USERS_NAMES = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -17,7 +19,7 @@ const names = [
   'Степашка',
 ];
 
-const comments = [
+const USERS_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -36,7 +38,7 @@ const comments = [
   'Снимок, который заставляет мое сердце замирать. Восхитительно!'
 ];
 
-const descriptions = [
+const PICTURE_DESCRIPTIONS = [
   'Удачная попытка фотографии!!!',
   'На отдыхе в солнечный день.',
   'Залив в приморском крае.',
@@ -65,14 +67,14 @@ const descriptions = [
 
 function createComments() {
   const result = [];
-  const commentsCount = getRandomInteger(0, comments.length);
+  const commentsCount = getRandomInteger(1, USERS_COMMENTS.length);
 
   for (let i = 0; i < commentsCount; i++) {
     result.push({
-      id: getRandomInteger(1, 1000),
+      id: getRandomInteger(MIN_COMMENT_ID, MAX_COMMENT_ID),
       avatar: `img/avatar-${getRandomInteger(MIN_NUMBER_AVATAR, MAX_NUMBER_AVATAR)}.svg`,
-      message: getRandomArrayElement(comments),
-      name: getRandomArrayElement(names),
+      message: getRandomArrayElement(USERS_COMMENTS),
+      name: getRandomArrayElement(USERS_NAMES),
     });
   }
   return result;
@@ -81,11 +83,11 @@ function createComments() {
 function createPictures() {
   const pictures = [];
 
-  for (let i = 0; i < QUANTITY_OF_POSTS; i++) {
+  for (let i = 1; i < QUANTITY_OF_POSTS; i++) {
     const object = {
       id: i,
       url: `photos/${i}.jpg`,
-      description:  getRandomArrayElement(descriptions),
+      description:  getRandomArrayElement(PICTURE_DESCRIPTIONS),
       likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
       comments: createComments(),
     };
@@ -94,4 +96,6 @@ function createPictures() {
   return pictures;
 }
 
-export { createPictures, createComments };
+const TEST = createComments();
+
+export { createPictures, createComments, TEST };

@@ -7,6 +7,10 @@ const getRandomInteger = (a, b) => {
 };
 
 // Функиця по поиску случайного элемента в переданном массиве.
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+function getRandomArrayElement (array) {
+  return array[getRandomInteger(0, array.length - 1)];
+}
 
-export {getRandomInteger, getRandomArrayElement};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey};
