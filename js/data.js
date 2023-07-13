@@ -96,6 +96,5 @@ function createPictures() {
   return pictures;
 }
 
-const TEST = createComments();
 
-export { createPictures, createComments, TEST };
+export { createPictures, createComments};

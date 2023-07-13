@@ -6,3 +6,6 @@ import { renderPictures } from './render-pictures.js';
 
 const photoData = createPictures();
 renderPictures(photoData);
+const picture = renderPictures(photoData);
+
+export {picture};
