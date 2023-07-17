@@ -8,7 +8,7 @@ const commentsCountModal = document.querySelector('.social__comment-count');
 const commentsLoaderButton = document.querySelector('.comments-loader');
 
 // const AMOUNT__COMMENTS = 5;
-
+//
 // let commentsLoaded = SHOW__COMMENTS;
 // let currentComments = [];
 
