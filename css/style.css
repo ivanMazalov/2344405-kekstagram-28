@@ -1192,6 +1192,9 @@ main {
   transform: translateX(-50%);
 }
 
+.img-upload__error {
+  margin-bottom: 20 px;
+}
 
 /**
  * Экраны ошибки и успеха загрузки изображения

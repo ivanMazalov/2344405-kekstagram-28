@@ -6,19 +6,19 @@ const imgOpenForm = document.querySelector('.img-upload__overlay');
 const imgCloseForm = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const hashtagsText = document.querySelector('.text__hashtags');
-const textDescript = document.querySelector('.text__description');
+const textDescription = document.querySelector('.text__description');
 //const imgUploadSubmit = document.querySelector('.img-upload__submit');
 
 const MAX_HASHTAGS = 5;
 const MAX_HASHTAGS_LENGTH = 104;
-const MAX_DESCRIPT_LENGTH = 140;
+const MAX_DESCRIPTION_LENGTH = 140;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--invalid',
   successClass: 'img-upload__field-wrapper--valid',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextTag: 'span',
+  errorTextTag: 'div',
   errorTextClass: 'img-upload__error'
 });
 
@@ -29,6 +29,18 @@ const validateHashtagsNumber = (value) => {
   }
   return true;
 };
+
+const validateDescriptionLength = () => {
+  if (textDescription.value.trim().length <= MAX_DESCRIPTION_LENGTH) {
+    return true;
+  }
+};
+
+pristine.addValidator(
+  textDescription,
+  validateDescriptionLength,
+  'Превышен лимит символов (максимум 140)'
+)
 
 pristine.addValidator(
   hashtagsText,
@@ -131,7 +143,10 @@ function addRemovingListener () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-
+function initUploadForm () {
 imgUploadInput.addEventListener('change',openImgForm);
 hashtagsText.addEventListener('focus',addRemovingListener);
 imgCloseForm.addEventListener('click',closeImgEditForm);
+}
+
+export {initUploadForm};
