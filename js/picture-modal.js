@@ -32,7 +32,7 @@ const closeModal = () => {
   modal.classList.add('hidden');
   commentsCountModal.classList.remove('hidden');
   commentsLoaderButton.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+  document.body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', modalEscKeyHandler);
 };

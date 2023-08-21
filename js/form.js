@@ -1,4 +1,6 @@
 import { isEscapeKey } from './functions.js';
+import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 
 const imgUploadInput = document.querySelector('#upload-file');
@@ -7,7 +9,6 @@ const imgCloseForm = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const hashtagsText = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
-//const imgUploadSubmit = document.querySelector('.img-upload__submit');
 
 const MAX_HASHTAGS = 5;
 const MAX_HASHTAGS_LENGTH = 104;
@@ -40,7 +41,7 @@ pristine.addValidator(
   textDescription,
   validateDescriptionLength,
   'Превышен лимит символов (максимум 140)'
-)
+);
 
 pristine.addValidator(
   hashtagsText,
@@ -97,26 +98,6 @@ pristine.addValidator(
 );
 
 
-//Пытаюсь наладить деактивацию кнопки "отправить", но потерял логику, куда воткнуть. Если раскомментировать - коряво пристинит
-
-// const allValidateHashtags = (value) => {
-//   if(validateHashtagNumber(value) && validateHashtagExp(value) && validateHashtagDublicate(value)){
-//     imgUploadSubmit.disabled = false;
-//     return true;
-//   }else if (value.length === 0){
-//     imgUploadSubmit.disabled = false;
-//     return true;
-//   }else{
-//     imgUploadSubmit.disabled = true;
-//     return false;
-//   }
-// };
-
-// pristine.addValidator(
-//   hashtagsText,
-//   allValidateHashtags,
-//   'Ошибка в заполнении'
-// );
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -136,6 +117,8 @@ function closeImgEditForm () {
   document.body.classList.remove('modal-open');
   form.reset();
   pristine.reset();
+  resetScale();
+  resetEffects();
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
@@ -144,9 +127,9 @@ function addRemovingListener () {
 }
 
 function initUploadForm () {
-imgUploadInput.addEventListener('change',openImgForm);
-hashtagsText.addEventListener('focus',addRemovingListener);
-imgCloseForm.addEventListener('click',closeImgEditForm);
+  imgUploadInput.addEventListener('change',openImgForm);
+  hashtagsText.addEventListener('focus',addRemovingListener);
+  imgCloseForm.addEventListener('click',closeImgEditForm);
 }
 
 export {initUploadForm};
