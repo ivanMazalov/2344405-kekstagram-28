@@ -107,18 +107,20 @@ const resetEffects = () => {
   updateSlider();
 };
 
-noUiSlider.create(sliderEffectLevel, {
-  range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max,
-  },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
-  connect: 'lower',
-});
-hideSlider();
+const initEffects = () => {
+  noUiSlider.create(sliderEffectLevel, {
+    range: {
+      min: DEFAULT_EFFECT.min,
+      max: DEFAULT_EFFECT.max,
+    },
+    start: DEFAULT_EFFECT.max,
+    step: DEFAULT_EFFECT.step,
+    connect: 'lower',
+  });
+  hideSlider();
 
-photoEffects.addEventListener('change', onEffectsChange);
-sliderEffectLevel.noUiSlider.on('update', onSliderUpdate);
+  photoEffects.addEventListener('change', onEffectsChange);
+  sliderEffectLevel.noUiSlider.on('update', onSliderUpdate);
+};
 
-export {resetEffects};
+export {initEffects, resetEffects};

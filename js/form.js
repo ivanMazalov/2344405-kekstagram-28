@@ -2,6 +2,9 @@ import { isEscapeKey } from './functions.js';
 import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 
+const MAX_HASHTAGS = 5;
+const MAX_HASHTAGS_LENGTH = 104;
+const MAX_DESCRIPTION_LENGTH = 140;
 
 const imgUploadInput = document.querySelector('#upload-file');
 const imgOpenForm = document.querySelector('.img-upload__overlay');
@@ -9,10 +12,6 @@ const imgCloseForm = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const hashtagsText = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
-
-const MAX_HASHTAGS = 5;
-const MAX_HASHTAGS_LENGTH = 104;
-const MAX_DESCRIPTION_LENGTH = 140;
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -96,7 +95,6 @@ pristine.addValidator(
   validateHashtagDublicate,
   'Обнаружены повторяющиеся хэштеги!'
 );
-
 
 
 const onDocumentKeydown = (evt) => {
