@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomInteger} from './functions.js';
+import {getRandomArrayElement, getRandomInteger} from './util.js';
 
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
@@ -97,4 +97,4 @@ function createPictures() {
 }
 
 
-export { createPictures, createComments};
+export { createPictures };

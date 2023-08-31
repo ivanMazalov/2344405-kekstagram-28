@@ -1,33 +1,38 @@
-const getData = () => fetch(
-  'https://28.javascript.pages.academy/kekstagram/data')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error();
-    }
-    return response.json();
-  })
-  .catch(() => {
-    throw new Error('Не удалось загрузить данные. Попробуйте обновить страницу');
-  });
+import { showAlert } from './util.js';
 
+const FETCH_DATA_URL = 'https://28.javascript.pages.academy/kekstagram/data';
+const SEND_DATA_URL = 'https://28.javascript.pages.academy/kekstagram';
+const LOAD_ERROR_MESSAGE = 'При загрузке данных с сервера произошла ошибка.';
 
-const postData = (onSuccess, onFail, body) => {
-  fetch(
-    'https://28.javascript.pages.academy/kekstagram',
-    {
-      method: 'POST',
-      body,
-    }
-  ).then((response) => {
-    if (response.ok) {
-      onSuccess();
-    } else {
-      onFail('Данные не валидны');
-    }
-  })
-    .catch((err) => {
-      onFail(err.message);
+const fetchData = (onSuccess) => {
+  fetch(FETCH_DATA_URL)
+    .then((responce) => responce.json())
+    .then((photos) => {
+      onSuccess(photos);
+    })
+    .catch(() => {
+      showAlert(LOAD_ERROR_MESSAGE);
     });
 };
 
-export {getData, postData};
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    SEND_DATA_URL,
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then((responce) => {
+      if (responce.ok) {
+        onSuccess();
+      } else {
+        onFail();
+      }
+    })
+    .catch(() => {
+      onFail();
+    });
+};
+
+export { fetchData, sendData };

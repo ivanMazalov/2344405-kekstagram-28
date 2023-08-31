@@ -1,22 +1,10 @@
-import {initUploadForm} from './form.js';
-// import { createPictures } from './data.js';
-import { renderPictures } from './render-pictures.js';
+import {renderPhotos} from './thumbnails.js';
+import { initPhotoUpload } from './upload-form.js';
 import { initEffects } from './effects.js';
-import { getData } from './api.js';
-import { showAlert } from './functions.js';
+import { fetchData } from './api.js';
 
 
-initUploadForm();
+fetchData(renderPhotos);
+
+initPhotoUpload();
 initEffects();
-
-getData().
-  then((photos) =>{
-    renderPictures(photos);
-  })
-  .catch(
-    (err) => {
-      showAlert(err.message);
-    }
-  );
-
-

@@ -5,9 +5,9 @@ const pictureTemplate = document.querySelector('#picture').content;
 //Поиск шаблона по id, получение его содержимого из элемента с классом .picture
 const picturesContainer = document.querySelector('.pictures');
 
-const renderPictures = (photos) => {
+const renderPictures = (pictures) => {
   const fragment = document.createDocumentFragment();
-  photos.forEach((picture) => {
+  pictures.forEach((picture) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = picture.url;
     pictureElement.querySelector('.picture__likes').textContent = picture.likes;
