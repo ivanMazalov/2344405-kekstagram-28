@@ -56,7 +56,7 @@ const DEFAULT_EFFECT = EFFECTS.NONE;
 const effectLevelElement = document.querySelector('.img-upload__effect-level');
 const sliderElement = effectLevelElement.querySelector('.effect-level__slider');
 const effectsLevelValueElement = effectLevelElement.querySelector('.effect-level__value');
-const effectInputs = document.querySelectorAll('.effects__radio');
+const effectInputsElements = document.querySelectorAll('.effects__radio');
 const photoUploadPreviewElement = document.querySelector('.img-upload__preview img');
 
 let currentEffect = DEFAULT_EFFECT;
@@ -78,14 +78,14 @@ const updateSlider = () => {
   }
 };
 
-const sliderUpdateHandler = () => {
+const onSliderUpdate = () => {
   photoUploadPreviewElement.style.filter = 'none';
   photoUploadPreviewElement.classList = '';
   effectsLevelValueElement.value = '';
 
   const sliderValue = sliderElement.noUiSlider.get();
   photoUploadPreviewElement.style.filter = `${currentEffect.effect}(${sliderValue}${currentEffect.effectUnit})`;
-  photoUploadPreviewElement.classList.add = (`effects__preview--${currentEffectName}`);
+  photoUploadPreviewElement.classList.add(`effects__preview--${currentEffectName}`);
   effectsLevelValueElement.value = sliderValue;
 };
 
@@ -95,7 +95,7 @@ const resetEffects = () => {
   updateSlider();
 };
 
-const handleEffectChange = (evt) => {
+const onEffectChange = (evt) => {
   currentEffectName = evt.target.value;
   currentEffect = currentEffectName.toUpperCase();
   currentEffect = EFFECTS[currentEffect];
@@ -114,10 +114,10 @@ const initPhotoEffectsSlider = () => {
     step: DEFAULT_EFFECT.step,
   });
 
-  sliderElement.noUiSlider.on('update', sliderUpdateHandler);
+  sliderElement.noUiSlider.on('update', onSliderUpdate);
 
-  effectInputs.forEach((item) => {
-    item.addEventListener('change', handleEffectChange);
+  effectInputsElements.forEach((item) => {
+    item.addEventListener('change', onEffectChange);
   });
 };
 

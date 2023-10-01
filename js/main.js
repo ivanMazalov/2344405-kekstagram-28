@@ -7,11 +7,13 @@ import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
 
+const debouncedRenderPhotos = debounce(renderPhotos, RERENDER_DELAY);
+
 fetchData((photos) => {
-  renderPhotos(photos);
-  setFilterDefault(photos, debounce(renderPhotos, RERENDER_DELAY));
-  setFilterDiscussed(photos, debounce(renderPhotos, RERENDER_DELAY));
-  setFilterRandom(photos, debounce(renderPhotos, RERENDER_DELAY));
+  debouncedRenderPhotos(photos);
+  setFilterDefault(photos, debouncedRenderPhotos);
+  setFilterDiscussed(photos, debouncedRenderPhotos);
+  setFilterRandom(photos, debouncedRenderPhotos);
 });
 
 initPhotoUpload();

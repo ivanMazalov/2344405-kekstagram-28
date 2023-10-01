@@ -32,16 +32,14 @@ const getRandomInteger = (a, b) => {
 };
 
 
-function getRandomArrayElement (array) {
-  return array[getRandomInteger(0, array.length - 1)];
-}
+const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
-const debounce = (callback, timeoutDelay) => {
+function debounce(callback, timeoutDelay) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-};
+}
 
 export {showAlert, isEscapeKey, debounce, getRandomArrayElement};

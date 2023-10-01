@@ -1,13 +1,15 @@
 import {getRandomArrayElement} from './util.js';
 
-const filtersListElement = document.querySelector('.img-filters__form');
-const filterDiscussedElement = filtersListElement.querySelector('#filter-discussed');
-const filterDefaultElement = filtersListElement.querySelector('#filter-default');
-const filterRandomElement = filtersListElement.querySelector('#filter-random');
-const filtersList = filtersListElement.querySelectorAll('.img-filters__button');
+const filtersFormElement = document.querySelector('.img-filters__form');
+const filterDiscussedElement = filtersFormElement.querySelector('#filter-discussed');
+const filterDefaultElement = filtersFormElement.querySelector('#filter-default');
+const filterRandomElement = filtersFormElement.querySelector('#filter-random');
+const filterButtonElements = filtersFormElement.querySelectorAll('.img-filters__button');
+
+const MAX_SORTED_COUNT = 10;
 
 const updateFilter = (evt) => {
-  filtersList.forEach((item) => {
+  filterButtonElements.forEach((item) => {
     item.classList.remove('img-filters__button--active');
   });
   evt.target.classList.add('img-filters__button--active');
@@ -35,7 +37,7 @@ const setFilterDiscussed = (photos, cb) => {
 const setFilterRandom = (photos, cb) => {
   filterRandomElement.addEventListener('click', (evt) => {
     const photosSorted = [];
-    while (photosSorted.length < 10) {
+    while (photosSorted.length < MAX_SORTED_COUNT) {
       const randomPhoto = getRandomArrayElement(photos);
       if (!photosSorted.includes(randomPhoto)) {
         photosSorted.push(randomPhoto);
