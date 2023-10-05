@@ -42,6 +42,12 @@ const renderComments = () => {
     comment.append(commentText);
     commentsListFragment.append(comment);
   });
+  if (currentComments.length > SHOWN_COMMENTS_COUNT) {
+    renderedCommentsCountElement.textContent = SHOWN_COMMENTS_COUNT;
+  } else {
+    renderedCommentsCountElement.textContent = currentComments.length;
+    commentsLoaderButtonElement.classList.add('hidden');
+  }
 };
 
 const loadComments = () => {
