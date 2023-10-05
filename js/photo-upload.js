@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { resetEffects } from './effects.js';
+import { resetEffects } from './photo-effects-slider.js';
 import { openSuccessMessageModal, openErrorMessageModal } from './upload-result-modal.js';
 import { isEscapeKey } from './util.js';
 
@@ -25,21 +25,21 @@ const imageUploadElement = document.querySelector('.img-upload');
 const buttonSmallerElement = imageUploadElement.querySelector('.scale__control--smaller');
 const buttonBiggerElement = imageUploadElement.querySelector('.scale__control--bigger');
 const scalePhotoElement = imageUploadElement.querySelector('.scale__control--value');
-const modalCloseButton = imageUploadElement.querySelector('#upload-cancel');
+const modalCloseButtonElement = imageUploadElement.querySelector('#upload-cancel');
 const uploadFormOverlayElement = imageUploadElement.querySelector('.img-upload__overlay');
 const photoUploadElement = imageUploadElement.querySelector('#upload-file');
 const addHashtagElement = imageUploadElement.querySelector('.text__hashtags');
 const addDescriptionElement = imageUploadElement.querySelector('.text__description');
 const photoUploadPreviewElement = imageUploadElement.querySelector('.img-upload__preview img');
-const photoUploadButton = imageUploadElement.querySelector('#upload-submit');
+const photoUploadButtonElement = imageUploadElement.querySelector('#upload-submit');
 const fileChooserElement = imageUploadElement.querySelector('#upload-file');
-const uploadForm = imageUploadElement.querySelector('.img-upload__form');
+const uploadFormElement = imageUploadElement.querySelector('.img-upload__form');
 
 
 let scaleValue = SCALE_VALUE_MAX;
 const hashtagValidationRegex = new RegExp('^#[A-Za-zА-Яа-яЁё0-9]{1,19}$', '');
 
-const modalEscKeyHandler = (evt) => {
+const onModalEscKeyDown = (evt) => {
   if (isEscapeKey(evt)) {
     if (document.activeElement !== addHashtagElement && document.activeElement !== addDescriptionElement) {
       closeModal();
@@ -47,16 +47,17 @@ const modalEscKeyHandler = (evt) => {
   }
 };
 
-function uploadModalOpen() {
+const uploadModalOpen = () => {
   uploadFormOverlayElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  document.addEventListener('keydown', modalEscKeyHandler);
-}
+  document.addEventListener('keydown', onModalEscKeyDown);
+};
 
+// function - потому что она вызывается в обработчиках выше чем она объявлена
 function closeModal() {
   uploadFormOverlayElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', modalEscKeyHandler);
+  document.removeEventListener('keydown', onModalEscKeyDown);
   photoUploadElement.value = '';
   addHashtagElement.value = '';
   addDescriptionElement.value = '';
@@ -66,7 +67,7 @@ function closeModal() {
   photoUploadPreviewElement.style.transform = `scale(${scaleValue / 100})`;
 }
 
-const scaleDecreaseClickHandler = () => {
+const onScaleDecreaseClick = () => {
   if (scaleValue > SCALE_VALUE_MIN) {
     scaleValue -= SCALE_CHANGE_STEP;
     scalePhotoElement.value = `${scaleValue}%`;
@@ -74,7 +75,7 @@ const scaleDecreaseClickHandler = () => {
   }
 };
 
-const scaleIncreaseClickHandler = () => {
+const onScaleIncreaseClick = () => {
   if (scaleValue < SCALE_VALUE_MAX) {
     scaleValue += SCALE_CHANGE_STEP;
     scalePhotoElement.value = `${scaleValue}%`;
@@ -98,15 +99,15 @@ const validateHashtagsQt = (value) => {
 };
 
 const validateHashtagsLetter = (value) => {
-  const hashtagsArr = value.trim().split(' ');
+  const hashtags = value.trim().split(' ');
   const validationResults = [];
 
   if (value === '') {
     return true;
   }
 
-  for (let i = 0; i < hashtagsArr.length; i++) {
-    validationResults[i] = hashtagValidationRegex.test(hashtagsArr[i]);
+  for (let i = 0; i < hashtags.length; i++) {
+    validationResults[i] = hashtagValidationRegex.test(hashtags[i]);
   }
 
   return !validationResults.includes(false);
@@ -130,16 +131,16 @@ const validateHashtagsDuplication = (value) => {
 
 const validateDescription = (value) => value.length <= DESCRIPTION_LENGTH_MAX;
 
-const photoUploadElementChangeHandler = () => {
+const onPhotoUploadElementChange = () => {
   uploadModalOpen();
 };
 
-const modalCloseButtonClickHandler = () => {
+const onModalCloseButtonClick = () => {
   closeModal();
 };
 
 const initPhotoUpload = () => {
-  const pristine = new Pristine(uploadForm, {
+  const pristine = new Pristine(uploadFormElement, {
     classTo: 'img-upload__field-wrapper',
     errorTextParent: 'img-upload__field-wrapper',
     errorTextClass: 'img-upload__field--error'
@@ -151,8 +152,8 @@ const initPhotoUpload = () => {
   pristine.addValidator(addHashtagElement, validateHashtagsDuplication, ErrorMessage.HASHTAG_DUPLICATE);
   pristine.addValidator(addDescriptionElement, validateDescription, ErrorMessage.BAD_DESCRIPTION_LENGTH);
 
-  photoUploadElement.addEventListener('change', photoUploadElementChangeHandler);
-  modalCloseButton.addEventListener('click', modalCloseButtonClickHandler);
+  photoUploadElement.addEventListener('change', onPhotoUploadElementChange);
+  modalCloseButtonElement.addEventListener('click', onModalCloseButtonClick);
 
   scalePhotoElement.value = `${scaleValue}%`;
 
@@ -167,23 +168,26 @@ const initPhotoUpload = () => {
     }
   });
 
-  buttonSmallerElement.addEventListener('click', scaleDecreaseClickHandler);
-  buttonBiggerElement.addEventListener('click', scaleIncreaseClickHandler);
+  buttonSmallerElement.addEventListener('click', onScaleDecreaseClick);
+  buttonBiggerElement.addEventListener('click', onScaleIncreaseClick);
 
-  uploadForm.addEventListener('submit', (evt) => {
+  uploadFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     if (pristine.validate()) {
-      photoUploadButton.disabled = true;
+      photoUploadButtonElement.disabled = true;
       sendData(
         () => {
           closeModal();
-          photoUploadButton.disabled = false;
+          photoUploadButtonElement.disabled = false;
           openSuccessMessageModal();
         },
         () => {
-          photoUploadButton.disabled = false;
+          photoUploadButtonElement.disabled = false;
           openErrorMessageModal();
+          uploadFormOverlayElement.classList.add('hidden');
+          document.body.classList.remove('modal-open');
+          document.removeEventListener('keydown', onModalEscKeyDown);
         },
         new FormData(evt.target),
       );
@@ -191,4 +195,4 @@ const initPhotoUpload = () => {
   });
 };
 
-export { initPhotoUpload, modalEscKeyHandler };
+export { initPhotoUpload, onModalEscKeyDown, uploadModalOpen };

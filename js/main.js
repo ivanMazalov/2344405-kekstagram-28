@@ -1,20 +1,20 @@
-import { renderPhotos } from './thumbnails.js';
-import { initPhotoUpload } from './upload-form.js';
-import { initPhotoEffectsSlider } from './effects.js';
+import { renderPhotos } from './photo-render.js';
+import { initPhotoUpload } from './photo-upload.js';
+import { initPhotoEffectsSlider } from './photo-effects-slider.js';
 import { fetchData } from './api.js';
 import { setFilterDefault, setFilterDiscussed, setFilterRandom } from './filter-sort.js';
 import { debounce } from './util.js';
 
 const RERENDER_DELAY = 500;
 
+const debouncedRenderPhotos = debounce(renderPhotos, RERENDER_DELAY);
+
 fetchData((photos) => {
-  renderPhotos(photos);
-  setFilterDefault(photos, debounce(renderPhotos, RERENDER_DELAY));
-  setFilterDiscussed(photos, debounce(renderPhotos, RERENDER_DELAY));
-  setFilterRandom(photos, debounce(renderPhotos, RERENDER_DELAY));
+  debouncedRenderPhotos(photos);
+  setFilterDefault(photos, debouncedRenderPhotos);
+  setFilterDiscussed(photos, debouncedRenderPhotos);
+  setFilterRandom(photos, debouncedRenderPhotos);
 });
 
 initPhotoUpload();
 initPhotoEffectsSlider();
-
-

@@ -1,19 +1,6 @@
 const ERROR_MESSAGE_TIME = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-// функия случайного числа из диапозона
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-
-function getRandomArrayElement (array) {
-  return array[getRandomInteger(0, array.length - 1)];
-}
-
 
 const showAlert = (message) => {
   const errorMessageElement = document.createElement('div');
@@ -37,12 +24,22 @@ const showAlert = (message) => {
   }, ERROR_MESSAGE_TIME);
 };
 
-const debounce = (callback, timeoutDelay) => {
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+
+const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
+
+function debounce(callback, timeoutDelay) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-};
+}
 
-export {getRandomInteger, getRandomArrayElement, showAlert, isEscapeKey, debounce};
+export {showAlert, isEscapeKey, debounce, getRandomArrayElement};

@@ -1,4 +1,4 @@
-import { showAlert } from './util.js';≠пш
+import { showAlert } from './util.js';
 
 const FETCH_DATA_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 const SEND_DATA_URL = 'https://28.javascript.pages.academy/kekstagram';
