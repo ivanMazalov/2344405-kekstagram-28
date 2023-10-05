@@ -2,7 +2,7 @@ import { showAlert } from './util.js';
 
 const FETCH_DATA_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 const SEND_DATA_URL = 'https://28.javascript.pages.academy/kekstagram';
-const LOAD_ERROR_MESSAGE = 'При загрузке данных с сервера произошла ошибка.';
+const LOAD_ERROR_MESSAGE = 'При загрузке данных с сервера произошла ошибка. Попробуйте заново';
 
 const fetchData = (onSuccess) => {
   fetch(FETCH_DATA_URL)
