@@ -102,4 +102,3 @@ modalCloseButtonElement.addEventListener('click', onModalCloseButtonClick);
 
 
 export { openPhotoModal };
-
