@@ -10,7 +10,7 @@ _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `package-lock.jso
 
 ---
 
-[Как работать с Git на проекте](Contributing.md) | [Как работать над проектом](Workflow.md)
+[Как работать с Git на проекте](Contributing.md) | [Как работать  над проектом](Workflow.md)
 
 ### Памятка
 
